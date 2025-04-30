@@ -200,6 +200,3 @@ def get_transcript(video_id):
     except Exception as e:
         print(f"Transcript Error: {str(e)}")
         return None
-
-
-file_to_s3("src/translation/audio/hello2.mp3")

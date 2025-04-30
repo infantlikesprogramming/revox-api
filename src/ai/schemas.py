@@ -42,8 +42,8 @@ class AiTranslationResponseModel(BaseModel):
         max_length=900,
     )
     short_title: str = Field(
-        description="AI generated short title, at most 20 character's long",
-        max_length=120,
+        description="AI generated short title, at most 100 character's long",
+        max_length=140,
     )
     needs_escalation: bool
     follow_up_required: bool

@@ -59,10 +59,11 @@ app.add_middleware(
         "http://localhost:3001",
         "https://qweqweqwe-theta.vercel.app",
         "https://coolapp.space",
+        "https://www.coolapp.space",
     ],  # Allow Next.js origin
     allow_credentials=True,
-    allow_methods=["*"],  # Allow POST, OPTIONS, etc.
-    allow_headers=["*"],  # Allow Content-Type, etc.
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # print(f"Private IP: {socket.gethostbyname(socket.gethostname())}")

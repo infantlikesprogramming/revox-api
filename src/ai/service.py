@@ -32,7 +32,7 @@ class AiService:
             # model="gpt-4o-mini-tts",
             model="tts-1",
             # voice=tts_data.voice,
-            voice="shimmer",
+            voice=tts_data.voice,
             input=tts_data.speech_transcript,
         ) as response:
             print("Saving audio" + tts_data.filepath)
@@ -46,7 +46,7 @@ class AiService:
         # model = OpenAIModel("gpt-4o-mini")
         # model = OpenAIModel("gpt-4o")
         model = OpenAIModel(
-            "grok-3-mini-beta",
+            "grok-3-beta",
             provider=OpenAIProvider(
                 base_url="https://api.x.ai/v1",
                 api_key=os.getenv("XAI_API_KEY"),
@@ -231,12 +231,14 @@ class AiService:
         for segment in resultList:
 
             if speakerName == segment.speaker_name:
-                speakerName = "\t\t"
+                speakerName = ""
             else:
-                speakerName = segment.speaker_name + ": "
+                speakerName = segment.speaker_name + " nói: "
+
             ttsData.append(
-                "..." + speakerName + "... " + segment.translation_vi + "...\n\n"
+                "[Pause] " + speakerName + segment.translation_vi + " [Pause]"
             )
+
             translatedData.append(speakerName + segment.translation_vi + "\n")
             attributedData.append(speakerName + segment.original_speech + "\n")
             speakerName = segment.speaker_name
@@ -261,7 +263,9 @@ class AiService:
 
         # return None
 
-    async def speaker_service(self, speakers: AiSpeakerServiceSpeakersDetails):
+    async def speaker_service(
+        self, speakers: AiSpeakerServiceSpeakersDetails, language: str = "Vietnamese"
+    ):
         def to_markdown(
             obj: Union[AiSpeakerServiceSpeaker, AiSpeakerServiceSpeakersDetails],
         ) -> str:
@@ -329,7 +333,11 @@ class AiService:
 
         print(to_markdown(speakers))
 
-        prompt = "Please give me accurate information (in Vietnamese) about the following speakers (who are speaking in a transcript). Be specific and search up datails and DONOT BE GENERAL. If the given name has tiny mistake, correct the mistake in the response"
+        prompt = (
+            "Please give me accurate information (in "
+            + language
+            + ") about the following speakers (who are speaking in a transcript). Be specific and search up datails and DONOT BE GENERAL. If the given name has tiny mistake, correct the mistake in the response"
+        )
         response = await gpt4_agent.run(prompt, deps=speakers)
 
         response.all_messages()

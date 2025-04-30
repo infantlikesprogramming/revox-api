@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime, date
-from typing import List
+from typing import List, Optional
 import uuid
 
 
@@ -21,6 +21,7 @@ class PersonCreateModel(BaseModel):
     short_summary: str
     long_summary: str
     speeches_id: List[uuid.UUID]
+    english_summary: str
 
 
 class PersonUpdateModel(BaseModel):
@@ -30,3 +31,4 @@ class PersonUpdateModel(BaseModel):
     short_summary: str
     long_summary: str
     speeches_id: List[uuid.UUID]
+    english_summary: Optional[str] = None

@@ -24,6 +24,7 @@ class Speech(BaseModel):
 
 class SpeechCreateModel(BaseModel):
     title: str
+    vi_title: str
     topic_name: str
     topic_ids: List[uuid.UUID]
     people_ids: List[uuid.UUID]
@@ -41,6 +42,7 @@ class SpeechCreateModel(BaseModel):
 
 class SpeechUpdateModel(BaseModel):
     title: str
+    vi_title: str
     topic_name: str
     topic_ids: List[uuid.UUID]
     people_ids: List[uuid.UUID]

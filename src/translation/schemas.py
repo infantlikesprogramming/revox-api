@@ -36,6 +36,7 @@ class SpeakerInfo(BaseModel):
     org: str
     long_summary: Optional[str] = None
     short_summary: Optional[str] = None
+    english_summary: Optional[str] = None
 
 
 class TopicInfo(BaseModel):

@@ -11,6 +11,7 @@ class Speeches(SQLModel, table=True):
         sa_column=Column(pg.UUID, nullable=False, primary_key=True, default=uuid.uuid4)
     )
     title: str = Field(sa_column=(Column(pg.VARCHAR(511), nullable=False)))
+    vi_title: str = Field(sa_column=(Column(pg.VARCHAR(511), nullable=True)))
     topic_name: str = Field(sa_column=(Column(pg.VARCHAR(255), nullable=False)))
     topic_ids: List[uuid.UUID] = Field(
         sa_column=Column(pg.ARRAY(pg.UUID), nullable=False, default=[])
@@ -31,6 +32,7 @@ class Speeches(SQLModel, table=True):
     translation_id: List[uuid.UUID] = Field(
         sa_column=Column(pg.ARRAY(pg.UUID), nullable=False, default=[])
     )
+    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
 
 
 class People(SQLModel, table=True):
@@ -45,6 +47,8 @@ class People(SQLModel, table=True):
     person_image: str = Field(sa_column=(Column(pg.TEXT, nullable=False)))
     short_summary: str = Field(sa_column=(Column(pg.TEXT, nullable=False)))
     long_summary: str = Field(sa_column=(Column(pg.TEXT, nullable=False)))
+    english_summary: str = Field(sa_column=(Column(pg.TEXT, nullable=True)))
+
     speeches_id: List[uuid.UUID] = Field(
         sa_column=Column(pg.ARRAY(pg.UUID), nullable=False, default=[])
     )
